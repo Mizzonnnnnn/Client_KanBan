@@ -19,8 +19,7 @@ const SignUp = () => {
         <>
             <Card
                 style={{
-                    width: '50%',
-                    border: "none"
+                    width: '336px',
                 }}
             >
                 <div className='text-center'>
