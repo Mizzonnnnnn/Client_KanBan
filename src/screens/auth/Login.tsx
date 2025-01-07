@@ -14,13 +14,18 @@ const Login = () => {
         console.log(">>> Check value: ", value)
     }
 
-    console.log("Check remember: ", isRemember);
     return (
         <>
-            <Card
-
-            >
-                <div className='text-center'>
+            <Card>
+                <div className='text-center '>
+                    <img
+                        className='mb-3'
+                        src={"https://www.dropbox.com/scl/fi/m0z7iuwmcrt8oij9gyxec/kanban.png?rlkey=xxs5zhn7gcuwbga387vlrrfl1&st=3cpxi77a&raw=1"} alt="logo"
+                        style={{
+                            width: "60px",
+                            height: "60px"
+                        }}
+                    />
                     <Title level={2}>Log in to your account</Title>
                     <Paragraph type='secondary'>
                         Welcomt back! Please enter your details.

@@ -8,12 +8,10 @@ const { Title, Paragraph, Text } = Typography;
 const SignUp = () => {
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false);
-    const [isRemember, setIsRemember] = useState(true);
     const handleLogin = (value: { email: string, password: string }) => {
         console.log(">>> Check value: ", value)
     }
 
-    console.log("Check remember: ", isRemember);
 
     return (
         <>
@@ -23,6 +21,14 @@ const SignUp = () => {
                 }}
             >
                 <div className='text-center'>
+                    <img
+                        className='mb-3'
+                        src={"https://www.dropbox.com/scl/fi/m0z7iuwmcrt8oij9gyxec/kanban.png?rlkey=xxs5zhn7gcuwbga387vlrrfl1&st=3cpxi77a&raw=1"} alt="logo"
+                        style={{
+                            width: "60px",
+                            height: "60px"
+                        }}
+                    />
                     <Title level={2}>Create an account</Title>
                     <Paragraph type='secondary'>
                         Start yout 30-day free trial.
