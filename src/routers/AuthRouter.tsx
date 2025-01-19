@@ -1,14 +1,9 @@
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Login, SignUp } from '../screens';
 import '../index.css'
 import { Typography } from 'antd';
-
-
 const { Title } = Typography
 
-{/* <img src="" alt="" /> */ }
-{/* d-none d-md-block d-lg-none */ }
 const AuthRouter = () => {
     return (
         <div className="container">
@@ -24,7 +19,7 @@ const AuthRouter = () => {
                         />
                     </div>
                     <div>
-                        <Title>KANBAN</Title>
+                        <Title className='text-info'>KANBAN</Title>
                     </div>
                 </div>
                 <div className="col content-center">
