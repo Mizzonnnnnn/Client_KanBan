@@ -5,23 +5,28 @@ import SocialLogin from '../../components/SocialLogin';
 import handleAPI from '../../apis/handleAPI';
 
 const { Title, Paragraph, Text } = Typography;
+interface userData {
+    name: string, email: string, password: string
+}
 
 const SignUp = () => {
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleLogin = async (values: { name: string, email: string, password: string }) => {
+    const handleLogin = async (values: userData) => {
         const api = '/auth/register';
         setIsLoading(true)
 
         try {
             const res: any = await handleAPI(api, values, 'post');
-            console.log("Check res register: ", res);
-            if (res && res.message) {
-                message.success(res.message)
+
+            if (res && res.data) {
+                if (res.EC === 0) {
+                    form.resetFields();
+                    message.success(res.message);
+                }
             }
         } catch (error: any) {
-            console.log(error);
             message.error(error?.message);
         } finally {
             setIsLoading(false)
