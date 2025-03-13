@@ -1,21 +1,23 @@
 import { Provider } from 'react-redux';
+import { ConfigProvider, App as AntdApp } from 'antd'; 
 import './App.css';
 import Routers from './routers/Routers';
-import { ConfigProvider } from 'antd';
 import store from './redux/store';
 
 function App() {
 
   return (
     <ConfigProvider
-      theme={{
-        token: {},
-        components: {}
-      }}
+    // theme={{
+    //   token: {},
+    //   components: {}
+    // }}
     >
-      <Provider store={store} >
-        <Routers />
-      </Provider>
+      <AntdApp> 
+        <Provider store={store}>
+          <Routers />
+        </Provider>
+      </AntdApp>
     </ConfigProvider>
   )
 }

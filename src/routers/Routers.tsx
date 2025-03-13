@@ -6,7 +6,8 @@ import { authSelector, AuthState } from '../redux/reducers/authReducer';
 const Routers = () => {
     const auth: AuthState = useSelector(authSelector);
     const dispatch = useDispatch();
-
+    // dispatch(set)
+    console.log("Check: ", auth)
     return !auth.token ? <AuthRouter /> : <MainRouter />
 };
 

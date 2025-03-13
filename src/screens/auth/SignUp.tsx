@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SocialLogin from '../../components/SocialLogin';
 import handleAPI from '../../apis/handleAPI';
+import { useDispatch } from 'react-redux';
+import { addAuth } from '../../redux/reducers/authReducer';
+import { localDataNames } from '../../constants/appInfos';
 
 const { Title, Paragraph, Text } = Typography;
 interface userData {
@@ -12,6 +15,7 @@ interface userData {
 const SignUp = () => {
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
 
     const handleLogin = async (values: userData) => {
         const api = '/auth/register';
@@ -19,10 +23,12 @@ const SignUp = () => {
 
         try {
             const res: any = await handleAPI(api, values, 'post');
-
+            console.log(res)
             if (res && res.data) {
                 if (res.EC === 0) {
                     form.resetFields();
+                    localStorage.setItem(localDataNames.authData, JSON.stringify(res.data))
+                    dispatch(addAuth(res.data))
                     message.success(res.message);
                 }
             }
@@ -66,6 +72,7 @@ const SignUp = () => {
                     <Form.Item
                         name={"name"}
                         label="Name"
+                        validateTrigger="onSubmit"
                         rules={[
                             {
                                 required: true,
@@ -82,6 +89,7 @@ const SignUp = () => {
                     <Form.Item
                         name={"email"}
                         label="Email"
+                        validateTrigger="onSubmit"
                         rules={[
                             {
                                 required: true,
@@ -105,6 +113,7 @@ const SignUp = () => {
                     <Form.Item
                         name={"password"}
                         label="Password"
+                        validateTrigger="onSubmit"
                         rules={[
                             {
                                 required: true,
