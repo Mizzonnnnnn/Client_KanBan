@@ -1,31 +1,33 @@
-import { Button, Card, Checkbox, Form, Input, Space, Typography } from 'antd';
+import { Button, Card, Checkbox, Form, Input, message, Space, Typography } from 'antd';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SocialLogin from '../../components/SocialLogin';
 import handleAPI from '../../apis/handleAPI';
+import { useDispatch } from 'react-redux';
+import { addAuth } from '../../redux/reducers/authReducer';
 
 const { Title, Paragraph, Text } = Typography;
 
 const Login = () => {
-
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false);
     const [isRemember, setIsRemember] = useState(true);
-
+    const dispatch = useDispatch()
     const handleLogin = async (values: { email: string, password: string }) => {
-        console.log(">>> Check value: ", values)
         try {
-            const res = await handleAPI('/auth/register', values, 'post');
-            console.log("Check res login: ", res);
-        } catch (error) {
-            console.log(error);
+            const res: any = await handleAPI('/auth/login', values, 'post');
+
+            message.success(res.message);
+            res.data && dispatch(addAuth(res.data))
+        } catch (error: any) {
+            message.error(error.message)
         }
     }
 
     return (
         <>
             <Card>
-                <div className='text-center '>
+                <div className='text-center'>
                     <img
                         className='mb-3'
                         src={"https://www.dropbox.com/scl/fi/m0z7iuwmcrt8oij9gyxec/kanban.png?rlkey=xxs5zhn7gcuwbga387vlrrfl1&st=3cpxi77a&raw=1"} alt="logo"
@@ -50,11 +52,23 @@ const Login = () => {
                     <Form.Item
                         name={"email"}
                         label="Email"
+                        validateTrigger="onSubmit"
                         rules={[
                             {
                                 required: true,
                                 message: "Please enter your email!!!"
-                            }
+                            },
+                            () => ({
+                                validator(_, value) {
+                                    if (!value) {
+                                        return Promise.resolve();
+                                    }
+                                    if (!/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(value)) {
+                                        return Promise.reject("Enter a valid email")
+                                    }
+                                    return Promise.resolve();
+                                },
+                            })
                         ]}>
                         <Input allowClear maxLength={100} type='email' />
                     </Form.Item>
@@ -62,6 +76,7 @@ const Login = () => {
                     <Form.Item
                         name={"password"}
                         label="Password"
+                        validateTrigger="onSubmit"
                         rules={[
                             {
                                 required: true,

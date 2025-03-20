@@ -5,7 +5,6 @@ import SocialLogin from '../../components/SocialLogin';
 import handleAPI from '../../apis/handleAPI';
 import { useDispatch } from 'react-redux';
 import { addAuth } from '../../redux/reducers/authReducer';
-import { localDataNames } from '../../constants/appInfos';
 
 const { Title, Paragraph, Text } = Typography;
 interface userData {
@@ -23,11 +22,9 @@ const SignUp = () => {
 
         try {
             const res: any = await handleAPI(api, values, 'post');
-            console.log(res)
             if (res && res.data) {
                 if (res.EC === 0) {
                     form.resetFields();
-                    localStorage.setItem(localDataNames.authData, JSON.stringify(res.data))
                     dispatch(addAuth(res.data))
                     message.success(res.message);
                 }
