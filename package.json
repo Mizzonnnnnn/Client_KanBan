@@ -8,11 +8,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.119",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "antd": "^5.22.2",
     "axios": "1.7.9",
+    "firebase": "^11.5.0",
     "jsonwebtoken": "^9.0.2",
     "query-string": "^9.1.1",
     "react": "^18.3.1",
@@ -48,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.11"
   }
 }

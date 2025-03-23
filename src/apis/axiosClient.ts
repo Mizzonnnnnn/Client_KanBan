@@ -18,15 +18,16 @@ axiosClient.interceptors.request.use(async (config: any) => {
     return Promise.reject(error);
 });
 
-axiosClient.interceptors.response.use((response) => {
-    if (response.data && response.status >= 200 && response.status < 300) {
-        return response.data;
+axiosClient.interceptors.response.use((res) => {
+    if (res.data && res.status >= 200 && res.status < 300) {
+        return res.data;
     } else {
-        return Promise.reject(response.data);
+        return Promise.reject(res.data);
     }
 }, (error) => {
-    const { response } = error;
-    return Promise.reject(response.data);
+    const { res } = error;
+
+    return Promise.reject(res.data);
 });
 
 export default axiosClient;

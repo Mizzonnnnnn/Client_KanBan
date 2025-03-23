@@ -4,7 +4,9 @@ import './App.css';
 import Routers from './routers/Routers';
 import store from './redux/store';
 
-function App() {
+const App = () => {
+  // console.log("Check env: ", process.env.REACT_APP_ID)
+
   return (
     <>
       <ConfigProvider
@@ -20,7 +22,6 @@ function App() {
         </AntdApp>
       </ConfigProvider>
     </>
-
   )
 }
 
