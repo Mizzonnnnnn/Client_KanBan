@@ -1,15 +1,15 @@
-import { Button, Card, Checkbox, Form, Input, message, Space, Typography, App as AntdApp } from 'antd';
+import { Button, Card, Checkbox, Form, Input, message, Space, Typography } from 'antd';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SocialLogin from '../../components/SocialLogin';
 import handleAPI from '../../apis/handleAPI';
 import { useDispatch } from 'react-redux';
 import { addAuth } from '../../redux/reducers/authReducer';
+import { localDataNames } from '../../constants/appInfos';
 
 const { Title, Paragraph, Text } = Typography;
 
 const Login = () => {
-    const { message } = AntdApp.useApp();
     const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false);
     const [isRemember, setIsRemember] = useState(true);
@@ -21,13 +21,16 @@ const Login = () => {
             const res: any = await handleAPI('/auth/login', values, 'post');
             message.success(res.message);
             res.data && dispatch(addAuth(res.data))
+
+            if (isRemember) {
+                localStorage.setItem(localDataNames.authData, JSON.stringify(res.data))
+            }
         } catch (error: any) {
             message.error(error.message)
         } finally {
             setIsLoading(false);
         }
     }
-
     return (
         <>
             <Card>

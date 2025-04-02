@@ -20,7 +20,6 @@ const authSlice = createSlice({
     reducers: {
         addAuth: (state, action) => {
             state.data = action.payload
-            syncLocal(action.payload)
         },
         removeAuth: (state, _action) => {
             state.data = initalState

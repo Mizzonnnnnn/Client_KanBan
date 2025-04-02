@@ -1,7 +1,14 @@
 import { Button } from 'antd';
 import React from 'react';
+import { GoogleAuthProvider } from "firebase/auth";
 
+const provider = new GoogleAuthProvider();
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+provider.setCustomParameters({
+    'login_hint': 'minhtoanpham1412@gmail.com'
+});
 const SocialLogin = () => {
+
     return (
         <Button
             style={{
