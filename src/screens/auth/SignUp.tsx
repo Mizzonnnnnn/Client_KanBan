@@ -1,10 +1,10 @@
 import { Button, Card, Form, Input, message, Space, Typography } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SocialLogin from '../../components/SocialLogin';
-import handleAPI from '../../apis/handleAPI';
+import SocialLogin from './components/SocialLogin';
 import { useDispatch } from 'react-redux';
 import { addAuth } from '../../redux/reducers/authReducer';
+import { registerUser } from '../../services/authService';
 
 const { Title, Paragraph, Text } = Typography;
 interface userData {
@@ -17,11 +17,10 @@ const SignUp = () => {
     const dispatch = useDispatch();
 
     const handleLogin = async (values: userData) => {
-        const api = '/auth/register';
         setIsLoading(true)
 
         try {
-            const res: any = await handleAPI(api, values, 'post');
+            const res: any = await registerUser(values)
             if (res && res.data) {
                 if (res.EC === 0) {
                     form.resetFields();
@@ -149,7 +148,7 @@ const SignUp = () => {
                     </Button>
                 </div>
 
-                <SocialLogin />
+                <SocialLogin/>
 
                 <div className="mt-4 text-center">
                     <Space>

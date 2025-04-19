@@ -1,13 +1,17 @@
 import { Button, Card, Checkbox, Form, Input, message, Space, Typography } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SocialLogin from '../../components/SocialLogin';
-import handleAPI from '../../apis/handleAPI';
 import { useDispatch } from 'react-redux';
 import { addAuth } from '../../redux/reducers/authReducer';
 import { localDataNames } from '../../constants/appInfos';
+import SocialLogin from './components/SocialLogin';
+import { loginBasic } from '../../services/authService';
 
 const { Title, Paragraph, Text } = Typography;
+interface userData {
+    email: string,
+    password: string
+}
 
 const Login = () => {
     const [form] = Form.useForm()
@@ -15,10 +19,10 @@ const Login = () => {
     const [isRemember, setIsRemember] = useState(true);
     const dispatch = useDispatch();
 
-    const handleLogin = async (values: { email: string, password: string }) => {
+    const handleLogin = async (values: userData) => {
         setIsLoading(true);
         try {
-            const res: any = await handleAPI('/auth/login', values, 'post');
+            const res: any = await loginBasic(values)
             message.success(res.message);
             res.data && dispatch(addAuth(res.data))
 
@@ -122,8 +126,7 @@ const Login = () => {
                         Sign in
                     </Button>
                 </div>
-
-                <SocialLogin />
+                <SocialLogin isRemember={isRemember} />
 
                 <div className="mt-4 text-center">
                     <Space>
